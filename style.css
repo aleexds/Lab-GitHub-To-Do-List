@@ -1,3 +1,19 @@
+/* Variables CSS globales */
+:root {
+    --primary-color: #28a745;
+    --primary-hover: #218838;
+    --danger-color: #dc3545;
+    --danger-hover: #c82333;
+    --bg-color: #f4f4f9;
+    --text-color: #333;
+    --text-muted: #888;
+    --border-color: #eee;
+    --card-bg: #ffffff;
+    --task-bg: #f9f9f9;
+    --filter-bg: #e0e0e0;
+    --filter-hover: #cccccc;
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -6,14 +22,14 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
+    background-color: var(--bg-color);
     display: flex;
     justify-content: center;
     padding-top: 50px;
 }
 
 .container {
-    background: white;
+    background: var(--card-bg);
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
@@ -23,7 +39,7 @@ body {
 h1 {
     text-align: center;
     margin-bottom: 20px;
-    color: #333;
+    color: var(--text-color);
 }
 
 .input-group {
@@ -35,13 +51,13 @@ h1 {
 input {
     flex: 1;
     padding: 8px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--border-color);
     border-radius: 4px;
 }
 
 button {
     padding: 8px 12px;
-    background: #28a745;
+    background: var(--primary-color);
     color: white;
     border: none;
     border-radius: 4px;
@@ -52,35 +68,32 @@ ul {
     list-style-type: none;
 }
 
-/* Nuevos estilos para las tareas y el botón de borrar */
 li {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px;
-    background-color: #f9f9f9;
+    background-color: var(--task-bg);
     margin-bottom: 8px;
     border-radius: 4px;
-    border: 1px solid #eee;
+    border: 1px solid var(--border-color);
 }
 
 .delete-btn {
-    background-color: #dc3545;
+    background-color: var(--danger-color);
     padding: 4px 8px;
     font-size: 12px;
 }
 
 .delete-btn:hover {
-    background-color: #c82333;
+    background-color: var(--danger-hover);
 }
 
-/* Estilos para las tareas completadas */
 .completed {
     text-decoration: line-through;
-    color: #888;
+    color: var(--text-muted);
 }
 
-/* Estilos para la sección de filtros */
 .filters {
     display: flex;
     justify-content: center;
@@ -89,8 +102,8 @@ li {
 }
 
 .filter-btn {
-    background-color: #e0e0e0;
-    color: #333;
+    background-color: var(--filter-bg);
+    color: var(--text-color);
     font-size: 12px;
     padding: 6px 10px;
     border: none;
@@ -98,5 +111,18 @@ li {
 }
 
 .filter-btn:hover {
-    background-color: #ccc;
+    background-color: var(--filter-hover);
+}
+
+.filter-btn.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.error {
+    color: var(--danger-color);
+    font-size: 13px;
+    margin-top: -10px;
+    margin-bottom: 15px;
+    display: none;
 }
