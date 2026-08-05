@@ -4,6 +4,20 @@ const addBtn = document.getElementById('addBtn');
 const taskList = document.getElementById('taskList');
 const filterBtns = document.querySelectorAll('.filter-btn');
 
+// Función para guardar tareas en LocalStorage
+function saveTasks() {
+    const tasks = [];
+    const liElements = taskList.querySelectorAll('li');
+    
+    liElements.forEach(function(li) {
+        const text = li.querySelector('span').textContent;
+        const isCompleted = li.querySelector('span').classList.contains('completed');
+        tasks.push({ text: text, completed: isCompleted });
+    });
+    
+    localStorage.setItem('todoTasks', JSON.stringify(tasks));
+}
+
 // Función para añadir una tarea
 function addTask() {
     const taskText = taskInput.value.trim();
@@ -17,6 +31,7 @@ function addTask() {
         
         span.addEventListener('click', function() {
             span.classList.toggle('completed');
+            saveTasks(); // Guardar al cambiar estado
         });
 
         const deleteBtn = document.createElement('button');
@@ -25,6 +40,7 @@ function addTask() {
 
         deleteBtn.addEventListener('click', function() {
             li.remove();
+            saveTasks(); // Guardar al eliminar
         });
 
         li.appendChild(span);
@@ -32,6 +48,7 @@ function addTask() {
         taskList.appendChild(li);
 
         taskInput.value = '';
+        saveTasks(); // Guardar al agregar
     } else {
         alert('Por favor, escribe una tarea.');
     }
@@ -39,12 +56,10 @@ function addTask() {
 
 // Función para filtrar las tareas
 function filterTasks(event) {
-    // Quitar la clase 'active' de todos los botones
     filterBtns.forEach(function(btn) {
         btn.classList.remove('active');
     });
     
-    // Añadir la clase 'active' al botón clickeado
     event.target.classList.add('active');
 
     const filter = event.target.getAttribute('data-filter');
@@ -72,7 +87,6 @@ taskInput.addEventListener('keypress', function(event) {
     }
 });
 
-// Añadir evento a cada botón de filtro
 filterBtns.forEach(function(btn) {
     btn.addEventListener('click', filterTasks);
 });
