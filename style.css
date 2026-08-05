@@ -73,3 +73,9 @@ li {
 .delete-btn:hover {
     background-color: #c82333;
 }
+
+/* Estilos para las tareas completadas */
+.completed {
+    text-decoration: line-through;
+    color: #888;
+}
