@@ -14,7 +14,13 @@ function addTask() {
         // Crear un span para contener el texto de la tarea
         const span = document.createElement('span');
         span.textContent = taskText;
+        span.style.cursor = 'pointer'; // Indicar visualmente que se puede hacer clic
         
+        // Añadir evento para marcar como completada
+        span.addEventListener('click', function() {
+            span.classList.toggle('completed');
+        });
+
         // Crear el botón de borrar
         const deleteBtn = document.createElement('button');
         deleteBtn.textContent = 'X';
