@@ -18,6 +18,48 @@ function saveTasks() {
     localStorage.setItem('todoTasks', JSON.stringify(tasks));
 }
 
+// Función para cargar tareas desde LocalStorage
+function loadTasks() {
+    const savedTasks = localStorage.getItem('todoTasks');
+    
+    if (savedTasks) {
+        const tasks = JSON.parse(savedTasks);
+        tasks.forEach(function(task) {
+            const li = document.createElement('li');
+            
+            const span = document.createElement('span');
+            span.textContent = task.text;
+            span.style.cursor = 'pointer';
+            
+            // Si la tarea estaba completada, le devolvemos su clase
+            if (task.completed) {
+                span.classList.add('completed');
+            }
+
+            span.addEventListener('click', function() {
+                span.classList.toggle('completed');
+                saveTasks();
+            });
+
+            const deleteBtn = document.createElement('button');
+            deleteBtn.textContent = 'X';
+            deleteBtn.className = 'delete-btn';
+
+            deleteBtn.addEventListener('click', function() {
+                li.remove();
+                saveTasks();
+            });
+
+            li.appendChild(span);
+            li.appendChild(deleteBtn);
+            taskList.appendChild(li);
+        });
+    }
+    
+    // Marcar el botón "Todas" como activo por defecto al cargar
+    document.querySelector('[data-filter="all"]').classList.add('active');
+}
+
 // Función para añadir una tarea
 function addTask() {
     const taskText = taskInput.value.trim();
@@ -31,7 +73,7 @@ function addTask() {
         
         span.addEventListener('click', function() {
             span.classList.toggle('completed');
-            saveTasks(); // Guardar al cambiar estado
+            saveTasks();
         });
 
         const deleteBtn = document.createElement('button');
@@ -40,7 +82,7 @@ function addTask() {
 
         deleteBtn.addEventListener('click', function() {
             li.remove();
-            saveTasks(); // Guardar al eliminar
+            saveTasks();
         });
 
         li.appendChild(span);
@@ -48,7 +90,7 @@ function addTask() {
         taskList.appendChild(li);
 
         taskInput.value = '';
-        saveTasks(); // Guardar al agregar
+        saveTasks();
     } else {
         alert('Por favor, escribe una tarea.');
     }
@@ -90,3 +132,6 @@ taskInput.addEventListener('keypress', function(event) {
 filterBtns.forEach(function(btn) {
     btn.addEventListener('click', filterTasks);
 });
+
+// Cargar las tareas guardadas al abrir la página
+loadTasks();
