@@ -10,7 +10,24 @@ function addTask() {
     if (taskText !== '') {
         // Crear el elemento <li>
         const li = document.createElement('li');
-        li.textContent = taskText;
+        
+        // Crear un span para contener el texto de la tarea
+        const span = document.createElement('span');
+        span.textContent = taskText;
+        
+        // Crear el botón de borrar
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = 'X';
+        deleteBtn.className = 'delete-btn';
+
+        // Función para eliminar la tarea
+        deleteBtn.addEventListener('click', function() {
+            li.remove();
+        });
+
+        // Añadir el texto y el botón al <li>
+        li.appendChild(span);
+        li.appendChild(deleteBtn);
 
         // Añadir el <li> a la lista <ul>
         taskList.appendChild(li);
