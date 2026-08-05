@@ -4,6 +4,38 @@ const addBtn = document.getElementById('addBtn');
 const taskList = document.getElementById('taskList');
 const filterBtns = document.querySelectorAll('.filter-btn');
 
+// Función refactorizada para crear un elemento de tarea
+function createTaskElement(taskText, isCompleted = false) {
+    const li = document.createElement('li');
+    
+    const span = document.createElement('span');
+    span.textContent = taskText;
+    span.style.cursor = 'pointer';
+    
+    if (isCompleted) {
+        span.classList.add('completed');
+    }
+
+    span.addEventListener('click', function() {
+        span.classList.toggle('completed');
+        saveTasks();
+    });
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.textContent = 'X';
+    deleteBtn.className = 'delete-btn';
+
+    deleteBtn.addEventListener('click', function() {
+        li.remove();
+        saveTasks();
+    });
+
+    li.appendChild(span);
+    li.appendChild(deleteBtn);
+    
+    return li;
+}
+
 // Función para guardar tareas en LocalStorage
 function saveTasks() {
     const tasks = [];
@@ -25,38 +57,11 @@ function loadTasks() {
     if (savedTasks) {
         const tasks = JSON.parse(savedTasks);
         tasks.forEach(function(task) {
-            const li = document.createElement('li');
-            
-            const span = document.createElement('span');
-            span.textContent = task.text;
-            span.style.cursor = 'pointer';
-            
-            // Si la tarea estaba completada, le devolvemos su clase
-            if (task.completed) {
-                span.classList.add('completed');
-            }
-
-            span.addEventListener('click', function() {
-                span.classList.toggle('completed');
-                saveTasks();
-            });
-
-            const deleteBtn = document.createElement('button');
-            deleteBtn.textContent = 'X';
-            deleteBtn.className = 'delete-btn';
-
-            deleteBtn.addEventListener('click', function() {
-                li.remove();
-                saveTasks();
-            });
-
-            li.appendChild(span);
-            li.appendChild(deleteBtn);
+            const li = createTaskElement(task.text, task.completed);
             taskList.appendChild(li);
         });
     }
     
-    // Marcar el botón "Todas" como activo por defecto al cargar
     document.querySelector('[data-filter="all"]').classList.add('active');
 }
 
@@ -65,30 +70,8 @@ function addTask() {
     const taskText = taskInput.value.trim();
 
     if (taskText !== '') {
-        const li = document.createElement('li');
-        
-        const span = document.createElement('span');
-        span.textContent = taskText;
-        span.style.cursor = 'pointer';
-        
-        span.addEventListener('click', function() {
-            span.classList.toggle('completed');
-            saveTasks();
-        });
-
-        const deleteBtn = document.createElement('button');
-        deleteBtn.textContent = 'X';
-        deleteBtn.className = 'delete-btn';
-
-        deleteBtn.addEventListener('click', function() {
-            li.remove();
-            saveTasks();
-        });
-
-        li.appendChild(span);
-        li.appendChild(deleteBtn);
+        const li = createTaskElement(taskText);
         taskList.appendChild(li);
-
         taskInput.value = '';
         saveTasks();
     } else {
