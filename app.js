@@ -24,3 +24,10 @@ function addTask() {
 
 // Escuchar el clic en el botón de añadir
 addBtn.addEventListener('click', addTask);
+
+// Escuchar la tecla Enter en el campo de texto
+taskInput.addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+        addTask();
+    }
+});
