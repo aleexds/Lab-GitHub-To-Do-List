@@ -39,6 +39,14 @@ function addTask() {
 
 // Función para filtrar las tareas
 function filterTasks(event) {
+    // Quitar la clase 'active' de todos los botones
+    filterBtns.forEach(function(btn) {
+        btn.classList.remove('active');
+    });
+    
+    // Añadir la clase 'active' al botón clickeado
+    event.target.classList.add('active');
+
     const filter = event.target.getAttribute('data-filter');
     const tasks = taskList.querySelectorAll('li');
 
