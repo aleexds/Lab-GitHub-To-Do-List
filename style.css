@@ -100,3 +100,9 @@ li {
 .filter-btn:hover {
     background-color: #ccc;
 }
+
+/* Estilo para el botón de filtro activo */
+.filter-btn.active {
+    background-color: #28a745;
+    color: white;
+}
