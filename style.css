@@ -51,3 +51,25 @@ button {
 ul {
     list-style-type: none;
 }
+
+/* Nuevos estilos para las tareas y el botón de borrar */
+li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #f9f9f9;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    border: 1px solid #eee;
+}
+
+.delete-btn {
+    background-color: #dc3545;
+    padding: 4px 8px;
+    font-size: 12px;
+}
+
+.delete-btn:hover {
+    background-color: #c82333;
+}
