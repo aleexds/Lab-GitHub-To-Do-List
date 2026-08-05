@@ -3,6 +3,7 @@ const taskInput = document.getElementById('taskInput');
 const addBtn = document.getElementById('addBtn');
 const taskList = document.getElementById('taskList');
 const filterBtns = document.querySelectorAll('.filter-btn');
+const errorMsg = document.getElementById('errorMsg');
 
 // Función refactorizada para crear un elemento de tarea
 function createTaskElement(taskText, isCompleted = false) {
@@ -70,12 +71,13 @@ function addTask() {
     const taskText = taskInput.value.trim();
 
     if (taskText !== '') {
+        errorMsg.style.display = 'none'; // Ocultar error si había
         const li = createTaskElement(taskText);
         taskList.appendChild(li);
         taskInput.value = '';
         saveTasks();
     } else {
-        alert('Por favor, escribe una tarea.');
+        errorMsg.style.display = 'block'; // Mostrar error inline
     }
 }
 
@@ -110,6 +112,11 @@ taskInput.addEventListener('keypress', function(event) {
     if (event.key === 'Enter') {
         addTask();
     }
+});
+
+// Ocultar el mensaje de error cuando el usuario empieza a escribir
+taskInput.addEventListener('input', function() {
+    errorMsg.style.display = 'none';
 });
 
 filterBtns.forEach(function(btn) {
