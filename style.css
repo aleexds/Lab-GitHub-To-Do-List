@@ -84,11 +84,13 @@ li {
 }
 
 /* Corrección definitiva para textos largos en Flexbox */
+/* Corrección definitiva para textos largos en Flexbox */
 li span {
     flex: 1;
     margin-right: 10px;
-    min-width: 0; /* Obliga al texto a respetar el ancho y bajar de línea */
-    overflow-wrap: break-word; /* Rompe palabras muy largas si es necesario */
+    min-width: 0; 
+    overflow-wrap: break-word;
+    cursor: pointer; /* Se mueve el estilo desde JS */
 }
 
 /* Definición de la animación de entrada */

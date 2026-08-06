@@ -37,7 +37,6 @@ function createTaskElement(taskText, isCompleted = false) {
     
     const span = document.createElement('span');
     span.textContent = taskText;
-    span.style.cursor = 'pointer';
     
     if (isCompleted) {
         span.classList.add('completed');
