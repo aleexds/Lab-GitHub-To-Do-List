@@ -53,7 +53,7 @@ input {
     padding: 8px;
     border: 1px solid var(--border-color);
     border-radius: 4px;
-    transition: all 0.3s ease; /* Transición suave para el foco y el error */
+    transition: all 0.3s ease;
 }
 
 button {
@@ -63,7 +63,7 @@ button {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.2s ease, box-shadow 0.2s ease; /* Transición suave en botones */
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 ul {
@@ -79,7 +79,16 @@ li {
     margin-bottom: 8px;
     border-radius: 4px;
     border: 1px solid var(--border-color);
-    animation: fadeIn 0.3s ease-in; /* Animación de entrada */
+    animation: fadeIn 0.3s ease-in;
+    /* Quitamos el overflow: hidden para que no se corte */
+}
+
+/* Corrección definitiva para textos largos en Flexbox */
+li span {
+    flex: 1;
+    margin-right: 10px;
+    min-width: 0; /* Obliga al texto a respetar el ancho y bajar de línea */
+    overflow-wrap: break-word; /* Rompe palabras muy largas si es necesario */
 }
 
 /* Definición de la animación de entrada */
@@ -92,7 +101,7 @@ li {
     background-color: var(--danger-color);
     padding: 4px 8px;
     font-size: 12px;
-    transition: opacity 0.2s ease; /* Transición suave al hacer hover */
+    transition: opacity 0.2s ease;
 }
 
 .delete-btn:hover {
@@ -200,12 +209,12 @@ button:focus {
     }
 
     .filters {
-        flex-wrap: wrap; /* Permite que los botones bajen a la siguiente línea si no caben */
+        flex-wrap: wrap;
     }
 
     .filter-btn {
-        flex: 1; /* Distribuye el espacio equitativamente */
-        min-width: 80px; /* Evita que se hagan demasiado pequeños */
+        flex: 1;
+        min-width: 80px;
         text-align: center;
     }
 }
