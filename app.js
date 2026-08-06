@@ -36,7 +36,7 @@ function createTaskElement(taskText, isCompleted = false) {
     span.addEventListener('click', function() {
         span.classList.toggle('completed');
         saveTasks();
-        updateTaskCount(); // Actualizar contador al cambiar estado
+        updateTaskCount();
     });
 
     const deleteBtn = document.createElement('button');
@@ -46,7 +46,7 @@ function createTaskElement(taskText, isCompleted = false) {
     deleteBtn.addEventListener('click', function() {
         li.remove();
         saveTasks();
-        updateTaskCount(); // Actualizar contador al eliminar
+        updateTaskCount();
     });
 
     li.appendChild(span);
@@ -82,7 +82,7 @@ function loadTasks() {
     }
     
     document.querySelector('[data-filter="all"]').classList.add('active');
-    updateTaskCount(); // Actualizar contador al cargar la página
+    updateTaskCount();
 }
 
 // Función para añadir una tarea
@@ -91,13 +91,16 @@ function addTask() {
 
     if (taskText !== '') {
         errorMsg.style.display = 'none';
+        taskInput.classList.remove('input-error'); // Quitar error visual
+        
         const li = createTaskElement(taskText);
         taskList.appendChild(li);
         taskInput.value = '';
         saveTasks();
-        updateTaskCount(); // Actualizar contador al agregar
+        updateTaskCount();
     } else {
         errorMsg.style.display = 'block';
+        taskInput.classList.add('input-error'); // Añadir error visual
     }
 }
 
@@ -132,7 +135,7 @@ function clearCompletedTasks() {
         span.parentElement.remove();
     });
     saveTasks();
-    updateTaskCount(); // Actualizar contador al limpiar completadas
+    updateTaskCount();
 }
 
 // Escuchar eventos
@@ -146,6 +149,7 @@ taskInput.addEventListener('keypress', function(event) {
 
 taskInput.addEventListener('input', function() {
     errorMsg.style.display = 'none';
+    taskInput.classList.remove('input-error'); // Quitar error al escribir
 });
 
 filterBtns.forEach(function(btn) {
@@ -154,5 +158,4 @@ filterBtns.forEach(function(btn) {
 
 clearCompletedBtn.addEventListener('click', clearCompletedTasks);
 
-// Cargar las tareas guardadas al abrir la página
 loadTasks();
