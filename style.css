@@ -126,3 +126,15 @@ li {
     margin-bottom: 15px;
     display: none;
 }
+
+/* Accesibilidad: Estilos de enfoque para navegación por teclado */
+input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.3);
+}
+
+button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.3);
+}
