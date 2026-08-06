@@ -1,17 +1,17 @@
-/* Variables CSS globales */
+/* Variables CSS - Paleta Turquesa cálido */
 :root {
-    --primary-color: #28a745;
-    --primary-hover: #218838;
-    --danger-color: #dc3545;
-    --danger-hover: #c82333;
-    --bg-color: #f4f4f9;
-    --text-color: #333;
-    --text-muted: #888;
-    --border-color: #eee;
+    --primary-color: #0d9488; 
+    --primary-hover: #0f766e;
+    --primary-light: #ccfbf1; 
+    --danger-color: #f43f5e; 
+    --danger-hover: #e11d48;
+    --text-color: #1f2937;
+    --text-muted: #6b7280;
+    --border-color: #e5e7eb;
     --card-bg: #ffffff;
-    --task-bg: #f9f9f9;
-    --filter-bg: #e0e0e0;
-    --filter-hover: #cccccc;
+    --task-bg: #ffffff;
+    --filter-bg: #f3f4f6;
+    --filter-hover: #e5e7eb;
 }
 
 * {
@@ -20,50 +20,90 @@
     padding: 0;
 }
 
+/* Fondo oscuro vibrante con explosión de color orgánico (blobs) */
 body {
-    font-family: Arial, sans-serif;
-    background-color: var(--bg-color);
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: #0f172a; 
+    background-image: 
+        radial-gradient(circle at 85% 15%, rgba(244, 63, 94, 0.4) 0%, transparent 50%),
+        radial-gradient(circle at 15% 85%, rgba(250, 204, 21, 0.35) 0%, transparent 50%),
+        radial-gradient(circle at 50% 70%, rgba(34, 211, 238, 0.3) 0%, transparent 50%);
+    background-attachment: fixed; 
     display: flex;
     justify-content: center;
     padding-top: 50px;
+    min-height: 100vh;
 }
 
+/* Tarjeta blanca que brilla sobre el fondo oscuro */
 .container {
     background: var(--card-bg);
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    width: 300px;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); 
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-left: 6px solid var(--primary-color); 
+    width: 340px;
+    margin: 20px;
+    position: relative;
+    z-index: 10; 
 }
 
 h1 {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     color: var(--text-color);
+    font-weight: 700;
+    font-size: 24px;
 }
 
+/* Input y Botón fusionados */
 .input-group {
     display: flex;
-    gap: 10px;
     margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    border-radius: 10px;
+    overflow: hidden; 
+    align-items: center; /* Fuerza la alineación vertical perfecta */
 }
 
 input {
     flex: 1;
-    padding: 8px;
+    padding: 12px 15px;
     border: 1px solid var(--border-color);
-    border-radius: 4px;
-    transition: all 0.3s ease;
+    border-right: none; 
+    background: var(--card-bg);
+    font-size: 14px;
+    line-height: 1; /* Asegura misma altura de línea */
+    transition: all 0.2s ease;
 }
 
-button {
-    padding: 8px 12px;
+input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: inset 0 0 0 1px var(--primary-color);
+    z-index: 1;
+}
+
+/* Botón Añadir acoplado perfectamente */
+#addBtn {
+    padding: 12px 20px;
     background: var(--primary-color);
     color: white;
-    border: none;
-    border-radius: 4px;
+    border: 1px solid var(--primary-color);
     cursor: pointer;
-    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 1; /* Asegura misma altura de línea que el input */
+    transition: background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#addBtn:hover {
+    background: var(--primary-hover);
+    border-color: var(--primary-hover);
 }
 
 ul {
@@ -74,65 +114,77 @@ li {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
+    padding: 14px 15px;
     background-color: var(--task-bg);
     margin-bottom: 8px;
-    border-radius: 4px;
+    border-radius: 8px;
     border: 1px solid var(--border-color);
+    border-left: 4px solid transparent; 
     animation: fadeIn 0.3s ease-in;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-left-color 0.2s ease;
 }
 
-/* Definición de la animación de entrada */
+li:hover {
+    transform: translateX(4px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.07);
+    border-left-color: var(--primary-color); 
+}
+
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-10px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Estilo del texto de la tarea */
 li span {
     flex: 1;
-    margin-right: 10px;
+    margin-right: 15px;
     min-width: 0; 
     overflow-wrap: break-word;
     cursor: pointer;
-    /* Preparamos la línea tachada pero invisible */
     text-decoration: line-through transparent;
     text-decoration-thickness: 2px;
-    /* Transición suave para el color del texto y de la línea */
     transition: color 0.3s ease, text-decoration-color 0.3s ease;
+    line-height: 1.5;
+    color: var(--text-color);
 }
 
-/* Estado completado: la línea pasa de transparente al color gris */
 .completed {
     color: var(--text-muted);
     text-decoration-color: var(--text-muted);
 }
 
 .delete-btn {
-    background-color: var(--danger-color);
-    padding: 4px 8px;
+    background-color: white;
+    color: var(--danger-color);
+    border: 1px solid var(--danger-color);
+    padding: 5px 10px;
     font-size: 12px;
-    transition: opacity 0.2s ease;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    font-weight: 600;
 }
 
 .delete-btn:hover {
-    background-color: var(--danger-hover);
+    background-color: var(--danger-color);
+    color: white;
 }
 
 .filters {
     display: flex;
     justify-content: center;
-    gap: 10px;
+    gap: 8px;
     margin-top: 20px;
 }
 
 .filter-btn {
     background-color: var(--filter-bg);
     color: var(--text-color);
-    font-size: 12px;
-    padding: 6px 10px;
-    border: none;
-    border-radius: 4px;
+    font-size: 13px;
+    padding: 8px 14px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.2s ease;
 }
 
 .filter-btn:hover {
@@ -142,6 +194,7 @@ li span {
 .filter-btn.active {
     background-color: var(--primary-color);
     color: white;
+    border-color: var(--primary-color);
 }
 
 .error {
@@ -150,37 +203,55 @@ li span {
     margin-top: -10px;
     margin-bottom: 15px;
     display: none;
+    font-weight: 500;
 }
 
 .input-error {
     border-color: var(--danger-color) !important;
-    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.25) !important;
+    box-shadow: inset 0 0 0 1px var(--danger-color) !important;
 }
 
 .empty-state {
     text-align: center;
     color: var(--text-muted);
-    font-style: italic;
-    padding: 20px 0;
+    font-style: normal;
+    padding: 30px 20px;
     display: none;
+    background-color: var(--primary-light); 
+    border: 2px dashed var(--primary-color);
+    border-radius: 12px;
+    margin-bottom: 10px;
+    opacity: 0.8;
+}
+
+.empty-state::before {
+    content: '📋';
+    display: block;
+    font-size: 2rem;
+    margin-bottom: 10px;
+    opacity: 0.5;
 }
 
 .task-counter {
     text-align: right;
     font-size: 13px;
-    color: var(--text-muted);
-    margin-top: 10px;
-    margin-bottom: 5px;
+    color: var(--primary-color);
+    margin-top: 15px;
+    margin-bottom: 10px;
+    font-weight: 600;
 }
 
 .clear-btn {
     display: block;
     width: 100%;
-    margin-top: 15px;
-    padding: 8px;
+    margin-top: 10px;
+    padding: 10px;
     background-color: transparent;
     color: var(--danger-color);
     border: 1px solid var(--danger-color);
+    border-radius: 10px;
+    font-weight: 600;
+    transition: all 0.2s ease;
 }
 
 .clear-btn:hover {
@@ -188,39 +259,19 @@ li span {
     color: white;
 }
 
-/* Accesibilidad: Estilos de enfoque para navegación por teclado */
-input:focus {
-    outline: none;
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.3);
-}
-
-button:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.3);
-}
-
-/* Diseño responsivo para móviles */
+/* Diseño responsivo */
 @media (max-width: 480px) {
     body {
-        padding-top: 20px;
-        padding-left: 10px;
-        padding-right: 10px;
+        padding-top: 0;
+        align-items: flex-start;
     }
 
     .container {
         width: 100%;
-        box-shadow: none;
-        border-radius: 0;
-    }
-
-    .filters {
-        flex-wrap: wrap;
-    }
-
-    .filter-btn {
-        flex: 1;
-        min-width: 80px;
-        text-align: center;
+        border-radius: 20px 20px 0 0; 
+        box-shadow: 0 -10px 40px rgba(0,0,0,0.4);
+        border-left: none; 
+        border-top: 6px solid var(--primary-color); 
+        min-height: 100vh;
     }
 }
