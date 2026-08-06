@@ -6,6 +6,16 @@ const filterBtns = document.querySelectorAll('.filter-btn');
 const errorMsg = document.getElementById('errorMsg');
 const clearCompletedBtn = document.getElementById('clearCompletedBtn');
 const taskCount = document.getElementById('taskCount');
+const emptyState = document.getElementById('emptyState');
+
+// Función para mostrar u ocultar el estado vacío
+function toggleEmptyState() {
+    if (taskList.children.length === 0) {
+        emptyState.style.display = 'block';
+    } else {
+        emptyState.style.display = 'none';
+    }
+}
 
 // Función para actualizar el contador de tareas pendientes
 function updateTaskCount() {
@@ -47,6 +57,7 @@ function createTaskElement(taskText, isCompleted = false) {
         li.remove();
         saveTasks();
         updateTaskCount();
+        toggleEmptyState(); // Evaluar si la lista quedó vacía
     });
 
     li.appendChild(span);
@@ -83,6 +94,7 @@ function loadTasks() {
     
     document.querySelector('[data-filter="all"]').classList.add('active');
     updateTaskCount();
+    toggleEmptyState(); // Evaluar estado vacío al cargar
 }
 
 // Función para añadir una tarea
@@ -91,16 +103,17 @@ function addTask() {
 
     if (taskText !== '') {
         errorMsg.style.display = 'none';
-        taskInput.classList.remove('input-error'); // Quitar error visual
+        taskInput.classList.remove('input-error');
         
         const li = createTaskElement(taskText);
         taskList.appendChild(li);
         taskInput.value = '';
         saveTasks();
         updateTaskCount();
+        toggleEmptyState(); // Ocultar estado vacío al agregar
     } else {
         errorMsg.style.display = 'block';
-        taskInput.classList.add('input-error'); // Añadir error visual
+        taskInput.classList.add('input-error');
     }
 }
 
@@ -136,6 +149,7 @@ function clearCompletedTasks() {
     });
     saveTasks();
     updateTaskCount();
+    toggleEmptyState(); // Evaluar si la lista quedó vacía al limpiar
 }
 
 // Escuchar eventos
@@ -149,7 +163,7 @@ taskInput.addEventListener('keypress', function(event) {
 
 taskInput.addEventListener('input', function() {
     errorMsg.style.display = 'none';
-    taskInput.classList.remove('input-error'); // Quitar error al escribir
+    taskInput.classList.remove('input-error');
 });
 
 filterBtns.forEach(function(btn) {
