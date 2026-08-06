@@ -5,6 +5,21 @@ const taskList = document.getElementById('taskList');
 const filterBtns = document.querySelectorAll('.filter-btn');
 const errorMsg = document.getElementById('errorMsg');
 const clearCompletedBtn = document.getElementById('clearCompletedBtn');
+const taskCount = document.getElementById('taskCount');
+
+// Función para actualizar el contador de tareas pendientes
+function updateTaskCount() {
+    const tasks = taskList.querySelectorAll('li');
+    let activeTasks = 0;
+    
+    tasks.forEach(function(task) {
+        if (!task.querySelector('span').classList.contains('completed')) {
+            activeTasks++;
+        }
+    });
+    
+    taskCount.textContent = activeTasks;
+}
 
 // Función refactorizada para crear un elemento de tarea
 function createTaskElement(taskText, isCompleted = false) {
@@ -21,6 +36,7 @@ function createTaskElement(taskText, isCompleted = false) {
     span.addEventListener('click', function() {
         span.classList.toggle('completed');
         saveTasks();
+        updateTaskCount(); // Actualizar contador al cambiar estado
     });
 
     const deleteBtn = document.createElement('button');
@@ -30,6 +46,7 @@ function createTaskElement(taskText, isCompleted = false) {
     deleteBtn.addEventListener('click', function() {
         li.remove();
         saveTasks();
+        updateTaskCount(); // Actualizar contador al eliminar
     });
 
     li.appendChild(span);
@@ -65,6 +82,7 @@ function loadTasks() {
     }
     
     document.querySelector('[data-filter="all"]').classList.add('active');
+    updateTaskCount(); // Actualizar contador al cargar la página
 }
 
 // Función para añadir una tarea
@@ -72,13 +90,14 @@ function addTask() {
     const taskText = taskInput.value.trim();
 
     if (taskText !== '') {
-        errorMsg.style.display = 'none'; // Ocultar error si había
+        errorMsg.style.display = 'none';
         const li = createTaskElement(taskText);
         taskList.appendChild(li);
         taskInput.value = '';
         saveTasks();
+        updateTaskCount(); // Actualizar contador al agregar
     } else {
-        errorMsg.style.display = 'block'; // Mostrar error inline
+        errorMsg.style.display = 'block';
     }
 }
 
@@ -110,9 +129,10 @@ function filterTasks(event) {
 function clearCompletedTasks() {
     const completedTasks = taskList.querySelectorAll('li .completed');
     completedTasks.forEach(function(span) {
-        span.parentElement.remove(); // Eliminar el <li> padre
+        span.parentElement.remove();
     });
-    saveTasks(); // Actualizar el LocalStorage
+    saveTasks();
+    updateTaskCount(); // Actualizar contador al limpiar completadas
 }
 
 // Escuchar eventos
@@ -124,7 +144,6 @@ taskInput.addEventListener('keypress', function(event) {
     }
 });
 
-// Ocultar el mensaje de error cuando el usuario empieza a escribir
 taskInput.addEventListener('input', function() {
     errorMsg.style.display = 'none';
 });
@@ -133,7 +152,6 @@ filterBtns.forEach(function(btn) {
     btn.addEventListener('click', filterTasks);
 });
 
-// Escuchar clic en el botón borrar completadas
 clearCompletedBtn.addEventListener('click', clearCompletedTasks);
 
 // Cargar las tareas guardadas al abrir la página
