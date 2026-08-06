@@ -184,3 +184,28 @@ button:focus {
     outline: none;
     box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.3);
 }
+
+/* Diseño responsivo para móviles */
+@media (max-width: 480px) {
+    body {
+        padding-top: 20px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .container {
+        width: 100%;
+        box-shadow: none;
+        border-radius: 0;
+    }
+
+    .filters {
+        flex-wrap: wrap; /* Permite que los botones bajen a la siguiente línea si no caben */
+    }
+
+    .filter-btn {
+        flex: 1; /* Distribuye el espacio equitativamente */
+        min-width: 80px; /* Evita que se hagan demasiado pequeños */
+        text-align: center;
+    }
+}
