@@ -4,6 +4,7 @@ const addBtn = document.getElementById('addBtn');
 const taskList = document.getElementById('taskList');
 const filterBtns = document.querySelectorAll('.filter-btn');
 const errorMsg = document.getElementById('errorMsg');
+const clearCompletedBtn = document.getElementById('clearCompletedBtn');
 
 // Función refactorizada para crear un elemento de tarea
 function createTaskElement(taskText, isCompleted = false) {
@@ -105,6 +106,15 @@ function filterTasks(event) {
     });
 }
 
+// Función para borrar tareas completadas
+function clearCompletedTasks() {
+    const completedTasks = taskList.querySelectorAll('li .completed');
+    completedTasks.forEach(function(span) {
+        span.parentElement.remove(); // Eliminar el <li> padre
+    });
+    saveTasks(); // Actualizar el LocalStorage
+}
+
 // Escuchar eventos
 addBtn.addEventListener('click', addTask);
 
@@ -122,6 +132,9 @@ taskInput.addEventListener('input', function() {
 filterBtns.forEach(function(btn) {
     btn.addEventListener('click', filterTasks);
 });
+
+// Escuchar clic en el botón borrar completadas
+clearCompletedBtn.addEventListener('click', clearCompletedTasks);
 
 // Cargar las tareas guardadas al abrir la página
 loadTasks();
