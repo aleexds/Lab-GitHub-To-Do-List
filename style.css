@@ -53,6 +53,7 @@ input {
     padding: 8px;
     border: 1px solid var(--border-color);
     border-radius: 4px;
+    transition: all 0.3s ease; /* Transición suave para el foco y el error */
 }
 
 button {
@@ -62,6 +63,7 @@ button {
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease; /* Transición suave en botones */
 }
 
 ul {
@@ -77,12 +79,20 @@ li {
     margin-bottom: 8px;
     border-radius: 4px;
     border: 1px solid var(--border-color);
+    animation: fadeIn 0.3s ease-in; /* Animación de entrada */
+}
+
+/* Definición de la animación de entrada */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .delete-btn {
     background-color: var(--danger-color);
     padding: 4px 8px;
     font-size: 12px;
+    transition: opacity 0.2s ease; /* Transición suave al hacer hover */
 }
 
 .delete-btn:hover {
@@ -127,19 +137,27 @@ li {
     display: none;
 }
 
-/* Accesibilidad: Estilos de enfoque para navegación por teclado */
-input:focus {
-    outline: none;
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.3);
+.input-error {
+    border-color: var(--danger-color) !important;
+    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.25) !important;
 }
 
-button:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.3);
+.empty-state {
+    text-align: center;
+    color: var(--text-muted);
+    font-style: italic;
+    padding: 20px 0;
+    display: none;
 }
 
-/* Estilos para el botón borrar completadas */
+.task-counter {
+    text-align: right;
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
 .clear-btn {
     display: block;
     width: 100%;
@@ -155,26 +173,14 @@ button:focus {
     color: white;
 }
 
-/* Estilos para el contador de tareas */
-.task-counter {
-    text-align: right;
-    font-size: 13px;
-    color: var(--text-muted);
-    margin-top: 10px;
-    margin-bottom: 5px;
+/* Accesibilidad: Estilos de enfoque para navegación por teclado */
+input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.3);
 }
 
-/* Estilo para el input cuando hay un error de validación */
-.input-error {
-    border-color: var(--danger-color) !important;
-    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.25) !important;
-}
-
-/* Estilos para el estado vacío */
-.empty-state {
-    text-align: center;
-    color: var(--text-muted);
-    font-style: italic;
-    padding: 20px 0;
-    display: none; /* Oculto por defecto */
+button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.3);
 }
